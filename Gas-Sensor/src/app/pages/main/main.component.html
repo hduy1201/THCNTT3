@@ -1,0 +1,54 @@
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
+  id="sidenav-main">
+  <app-side-bar></app-side-bar>
+</aside>
+<main style="margin-left: 230px;">
+  <table class="table">
+    <thead>
+      <tr class="table-danger">
+        <th scope="col">Day</th>
+        <th scope="col">Time</th>
+        <th scope="col">Gas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-danger">
+        <td>{{this.date}}</td>
+        <td>{{this.time}}</td>
+        <td>{{this.data.Gas}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-outline-dark" mat-button [matMenuTriggerFor]="afterMenu">History</button>
+  <div style="display: none;">
+    <div>{{this.date}}</div>
+    <div>{{this.time}}</div>
+    <div>{{this.data.Gas}}</div>
+  </div>
+
+  <p-chart type="line" [data]="data_Graph" width="1300px" height="550px" [responsive]="true"></p-chart>
+  <div *ngIf="showAudio">
+    <!-- <div>Cháy rồi chạy đi!</div> -->
+    <audio autoplay preload="none" loop>
+      <!-- <source src="../assets/music/Chạy Ngay Đi - Sơn Tùng M-TP - Bài hát, lyrics.mp3"> -->
+      <!-- <source src="https://open.spotify.com/track/4z9gBZQjGS4QLb4LOvmeuA?si=da26e45329dd4a36"> -->
+      <source src="assets/music/{{this.randomMusicFileName}}">
+
+    </audio>
+  </div>
+  <div *ngIf="!showAudio">
+    <!-- <div>Vẫn bình thường!</div> -->
+    <audio autoplay preload="none" loop>
+      <!-- <source src="../assets/music/Chạy Ngay Đi - Sơn Tùng M-TP - Bài hát, lyrics.mp3"> -->
+      <!-- <source src="https://open.spotify.com/track/4z9gBZQjGS4QLb4LOvmeuA?si=da26e45329dd4a36"> -->
+      <source src="assets/music/common/winter_sonata.mp3">
+    </audio>
+  </div>
+
+
+  <mat-menu #afterMenu="matMenu" xPosition="after">
+    <div *ngFor="let day of this.dayList">
+      <button mat-menu-item (click)="nextPage(day)">{{day}}</button>
+    </div>
+  </mat-menu>
+</main>
